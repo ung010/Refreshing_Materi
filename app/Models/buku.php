@@ -11,7 +11,7 @@ class buku extends Model
     protected $table = "buku";
     protected $fillable = ['id', 'judul', 'penulis'];
 
-    public function join(){
+    public function full(){
         return $this->hasMany(full::class, 'id_buku', 'id');
     }
 }

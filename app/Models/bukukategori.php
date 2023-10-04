@@ -11,7 +11,7 @@ class bukukategori extends Model
     protected $table = "bukukategori";
     protected $fillable = ['id', 'kategori'];
 
-    public function join(){
+    public function full(){
         return $this->hasMany(full::class, 'id_kategori', 'id');
     }
 }

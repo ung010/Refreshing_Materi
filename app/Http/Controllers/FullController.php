@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buku;
+use App\Models\bukukategori;
 use App\Models\full;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +16,7 @@ class FullController extends Controller
         ->join('buku', 'full.id_buku', '=', 'buku.id')
         ->join('bukukategori', 'full.id_kategori', '=', 'bukukategori.id')
         ->select('full.id_full', 'buku.judul', 'buku.penulis', 'bukukategori.kategori')
+        ->orderBy('id_full')
         ->get();
 
         return view('full.index')->with('data', $data);
@@ -21,8 +24,9 @@ class FullController extends Controller
 
     public function create()
     {
-        $data = full::all();
-        return view('full.create', compact('data'));
+        $data = buku::all();
+        $kategori = bukukategori::all();
+        return view('full.create', ['data' => $data, 'kategori' => $kategori]);
     }
 
     public function store(Request $request)
@@ -50,7 +54,11 @@ class FullController extends Controller
     public function edit($id)
     {
         $data = DB::table('full')->where('id_full', $id)->first();
-        return view('full.edit')->with('data', $data);
+        $kategori = bukukategori::all();
+        $buku = buku::all();
+        // return view('full.edit')->with('data', $data);
+
+        return view('full.edit', compact('data', 'kategori', 'buku'));
     }
 
     public function update($id, Request $request)

@@ -20,11 +20,11 @@ class full extends Model
 
     public function buku()
     {
-        return $this->belongsTo(buku::class, 'id_buku', 'id');
+        return $this->hasMany(buku::class, 'id_buku', 'id');
     }
 
     public function bukukategori()
     {
-        return $this->belongsTo(bukukategori::class, 'id_buku', 'id');
+        return $this->hasMany(bukukategori::class, 'id_kategori', 'id');
     }
 }
