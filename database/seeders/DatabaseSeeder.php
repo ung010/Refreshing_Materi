@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\buku;
 use App\Models\bukukategori;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -63,6 +64,35 @@ class DatabaseSeeder extends Seeder
         ];
         foreach($bukukategoris as  $bukukategori) {
             bukukategori::create($bukukategori);
+        }
+
+        $users = [
+            [
+                'id_users' => '001',
+                'name' => 'Mahasiswa',
+                'email' => 'users@gmail.com',
+                'password' => '1234',
+                'role' => 'users',
+            ],
+            [
+
+                'id_users' => '002',
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+                'password' => '1234',
+                'role' => 'admin',
+            ],
+            [
+
+                'id_users' => '003',
+                'name' => 'Manager',
+                'email' => 'manager@gmail.com',
+                'password' => '1234',
+                'role' => 'manager',
+            ],
+        ];
+        foreach($users as  $user) {
+            User::create($user);
         }
     }
 }

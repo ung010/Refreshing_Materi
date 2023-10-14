@@ -7,16 +7,20 @@
             <a href='/kategori' class="btn btn-warning btn-sm">Kategori</a>
             <a href='/full' class="btn btn-danger btn-sm">Full</a>
         </div>
+        @if (Auth::check() && Auth::user()->role == 'admin')
         <div class="d-flex justify-content-between">
             <a href="/buku/create" class="btn btn-primary">+++</a>
         </div>
+        @endif
         <table class="table table-striped text-center">
             <thead>
                 <tr>
                     <th class="col-md-1">ID Buku</th>
                     <th class="col-md-1">Judul Buku</th>
                     <th class="col-md-1">Penulis</th>
+                    @if (Auth::check() && Auth::user()->role == 'admin')
                     <th class="col-md-1">Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +29,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->penulis }}</td>
+                        @if (Auth::check() && Auth::user()->role == 'admin')
                         <td>
                             <a href='{{ url('/buku/edit/' . $item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                             <form onsubmit="return confirm('Yakin ingin menghapus permanen buku {{ $item -> judul }} ini?')" class="d-inline"
@@ -33,6 +38,7 @@
                                 <button type="submit" name="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

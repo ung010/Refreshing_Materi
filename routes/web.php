@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\BukuKategori;
 use App\Http\Controllers\FullController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,25 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-route::get('/', [WelcomeController::class, 'index'])->name('pembuka.index');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/', [LoginController::class, 'login']);
+    Route::get('/register', [LoginController::class, 'register']);
+    Route::post('/register/create', [LoginController::class, 'create'])->name('register.create');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [LoginController::class, 'logout']);
+    Route::get('/home', [AdminController::class, 'index'])->name('home.index');;
+    Route::get('/home/admin', [AdminController::class, 'admin'])->middleware('UserAkses:admin')->name('admin.index');;
+    Route::get('/home/users', [AdminController::class, 'users'])->middleware('UserAkses:users')->name('users.index');;
+    Route::get('/home/manager', [AdminController::class, 'manager'])->middleware('UserAkses:manager')->name('manager.index');;
+});
+
+// Route::get('/home', function() {
+//     return redirect('/home');
+// });
+
 
 route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
 route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
