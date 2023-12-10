@@ -5,6 +5,7 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\BukuKategori;
 use App\Http\Controllers\FullController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\suratTemplate;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
 // Route::get('/home', function() {
 //     return redirect('/home');
 // });
+
+route::get('/surat', [suratTemplate::class, 'index'])->name('surat.index');
 
 
 route::get('/buku', [BukuController::class, 'index'])->name('buku.index');

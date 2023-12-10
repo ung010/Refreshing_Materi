@@ -12,8 +12,7 @@ class BukuController extends Controller
     public function index()
     {
         $data = DB::select('SELECT * FROM buku');
-        return view('buku.index')
-            ->with('data', $data);
+        return view('buku.index')->with('data', $data);
     }
 
     public function create()
